@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="mb-3"><i class="bi bi-plus-circle"></i> Add a new task</h4>
+        <form method="POST" action="{{ url_for('todo.add_todo') }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="title" class="form-label">The name of the task</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="deadline" class="form-label">Deadline</label>
+                    <input type="datetime-local" class="form-control" id="deadline" name="deadline">
+                </div>
+                <div class="col-md-2">
+                    <label for="weight" class="form-label">Importance</label>
+                    <select class="form-select" id="weight" name="weight">
+                        <option value="1">1 - low</option>
+                        <option value="2">2 - Below average</option>
+                        <option value="3" selected>3 - average</option>
+                        <option value="4">4 - High</option>
+                        <option value="5">5 - Critical</option>
+                    </select>
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
