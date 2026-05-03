@@ -1,1 +1,5 @@
 .venv
+
+.buildozer/
+*.apk
+*.aab

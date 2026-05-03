@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="deadline" class="form-label">Deadline</label>
-                    <input type="datetime-local" class="form-control" id="deadline" name="deadline">
+                    <<input type="datetime-local" class="form-control" id="deadline" name="deadline" required>
                 </div>
                 <div class="col-md-2">
                     <label for="weight" class="form-label">Importance</label>
@@ -25,11 +25,63 @@
                     </select>
                 </div>
                 <div class="col-md-1 d-flex align-items-end">
+
                     <button type="submit" class="btn btn-primary w-100">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
+
             </div>
         </form>
     </div>
 </div>
+
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-4"><i class="bi bi-list-check"></i> My tasks</h4>
+        {% if todos %}
+            <div class="list-group">
+                {% for todo in todos %}
+                <div class="list-group-item todo-item {% if todo.done %}done{% endif %} mb-2">
+                    <div class="d-flex align-items-center">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="checkbox" {% if todo.done %}checked{% endif %}
+                                   onclick="window.location.href='{{ url_for('todo.toggle_todo', todo_id=todo.id) }}'">
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 todo-title">{{ todo.title }}</h6>
+                            <div class="d-flex gap-2 align-items-center">
+                                <span class="badge weight-badge weight-{{ todo.weight }}">
+                                    <i class="bi bi-star-fill"></i> Importance: {{ todo.weight }}
+                                </span>
+                                {% if todo.deadline %}
+                                <span class="badge bg-info">
+                                    <i class="bi bi-calendar-event"></i> {{ todo.deadline.strftime('%d.%m.%Y %H:%M') }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <a href="{{ url_for('todo.edit_todo', todo_id=todo.id) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{{ url_for('todo.delete_todo', todo_id=todo.id) }}" class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('are you sure')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+                <p class="mt-3">You have no tasks yet. Add your first!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

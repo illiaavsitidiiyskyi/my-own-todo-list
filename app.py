@@ -1,7 +1,5 @@
 from flask import Flask
 from models import init_db
-
-# Імпортація Blueprint
 from auth.routes import auth_bp
 from todo.routes import todo_bp
 

@@ -1,12 +1,10 @@
 from peewee import *
 
-db = SqliteDatabase('todos.db')
-
+db = SqliteDatabase('todo_mobile.db')
 
 class BaseModel(Model):
     class Meta:
         database = db
-
 
 class User(BaseModel):
     username = TextField(unique=True)
@@ -18,7 +16,6 @@ class Todo(BaseModel):
     deadline = DateTimeField()
     weight = IntegerField(default=3)
     done = BooleanField(default=False)
-
     user = ForeignKeyField(User, backref='todos')
 
 
